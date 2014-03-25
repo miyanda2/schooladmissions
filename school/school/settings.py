@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'registration',
     'admissions',
+    'crispy_forms',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,3 +87,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = (REGISTRATION_TEMPLATE_DIR,)
+
+MEDIA_ROOT = '/home/suma/Projects/Django/schooladmissions/schools/media/'
+
+MEDIA_URL = '/media/'
+
+LOGIN_URL = '/login/'
