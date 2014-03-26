@@ -1,11 +1,20 @@
 from django.contrib import admin
 
 # Register your models here.
-from admissions.models import ApplicationFormTemplate
+from admissions.models import AppFormTemplateParameters, UserProfile, AppForm
 
 
-class ApplicationFormTemplateAdmin(admin.ModelAdmin):
-    model = ApplicationFormTemplate
+class AppFormAdmin(admin.ModelAdmin):
+    model = AppForm
 
 
-admin.site.register(ApplicationFormTemplate, ApplicationFormTemplateAdmin)
+class AppFormTemplateParametersAdmin(admin.StackedInline):
+    model = AppFormTemplateParameters
+
+
+class UserProfileAdmin(admin.ModelAdmin):
+    model = UserProfile
+
+#admin.site.register(AppFormTemplateParameters, AppFormTemplateParametersAdmin)
+admin.site.register(AppForm, AppFormAdmin)
+admin.site.register(UserProfile, UserProfileAdmin)

@@ -16,11 +16,26 @@ class UserProfile(models.Model):
         return self.user.username
 
 
-#Application form template that stores boolean flags for each of the possible form fields
-class ApplicationFormTemplate(models.Model):
+class AppForm(models.Model):
+    #define your columns here
+    app_form_id = models.IntegerField(auto_created=True, name='Application Form ID', primary_key=True, )
+    app_form_name = models.CharField(max_length=200, blank=False, null=False, db_index=True, editable=True,
+                                     verbose_name='Name of the application form', help_text='Name of the application form')
+
+    class Meta:
+        verbose_name_plural = "Application Forms"
+
+    # Override the __unicode__() method to return out something meaningful!
+    def __unicode__(self):
+        return 'Application Form Template for userd id = '.format()
+
+
+#Application form template parameters that stores boolean flags for each of the possible form fields
+class AppFormTemplateParameters(models.Model):
     #each of the boolean flags are listed below
-    is_visible_first_name = models.BooleanField(default=True)
-    is_visible_middle_name = models.BooleanField(default=True)
+    app_form_id = models.ForeignKey(AppForm)
+    is_visible_first_name = models.BooleanField(default=True, verbose_name='First Name', help_text='Need to show first name field on the application form ?')
+    is_visible_middle_name = models.BooleanField(default=True, verbose_name='Middle Name', help_text='Need to show middle name field on the application form ?')
     is_visible_last_name = models.BooleanField(default=True)
     is_visible_father_name = models.BooleanField(default=True)
     is_visible_mother_name = models.BooleanField(default=True)
