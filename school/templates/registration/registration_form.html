@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block body_block %}
+    {% block title %}{% trans "Register for an account" %}{% endblock %}
+    {% block content %}
+        <table>
+            <form method='post' action=''>{% csrf_token %}
+                {{ form }}
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="{% trans "Send activation email" %}"/></td>
+            </form>
+        </table>
+    {% endblock %}
+{% endblock %}

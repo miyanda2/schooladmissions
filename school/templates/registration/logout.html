@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block body_block %}
+    {% block title %}{% trans "Logged out" %}{% endblock %}
+    {% block content %}
+        {% trans "Successfully logged out!" %}
+    {% endblock %}
+
+{% endblock %}
