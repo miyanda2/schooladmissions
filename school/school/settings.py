@@ -12,9 +12,10 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 from registration_defaults.settings import *
 
-APP_DIR = os.path.dirname(__file__)
-BASE_DIR = os.path.dirname(APP_DIR)
-
+SETTINGS_DIR = os.path.dirname(__file__)
+BASE_DIR = os.path.dirname(SETTINGS_DIR)
+PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
+PROJECT_PATH = os.path.abspath(PROJECT_PATH)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -87,12 +88,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [os.path.join(APP_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(SETTINGS_DIR, '../static')]
 
-TEMPLATE_DIRS = (REGISTRATION_TEMPLATE_DIR,)
+TEMPLATE_PATH = os.path.join(PROJECT_PATH, 'templates')
 
-MEDIA_ROOT = '/home/suma/Projects/Django/schooladmissions/schools/media/'
+TEMPLATE_DIRS = (TEMPLATE_PATH,)  #REGISTRATION_TEMPLATE_DIR,
+
+# Absolute path to the media directory
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
 
 MEDIA_URL = '/media/'
 
-LOGIN_URL = 'accounts/login/'
+LOGIN_URL = '/accounts/login/'
+
+ACCOUNT_ACTIVATION_DAYS = 2
+
+LOGIN_REDIRECT_URL = '/'
