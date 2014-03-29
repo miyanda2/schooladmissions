@@ -106,14 +106,17 @@ ACCOUNT_ACTIVATION_DAYS = 2
 LOGIN_REDIRECT_URL = '/'
 
 #####  django-contact-form related settings
-EMAIL_HOST = ''
-EMAIL_PORT = ''
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'django.sandeep.lakshmipathy'
+EMAIL_HOST_PASSWORD = 'django123'
+
 
 #By default, the From: header of all emails sent by django-contact-form will be whatever email address is specified in DEFAULT_FROM_EMAIL
-DEFAULT_FROM_EMAIL = ''
+DEFAULT_FROM_EMAIL = 'django.sandeep.lakshmipathy@gmail.com'
 
 #The recipient list for emails sent by django-contact-form will be the email addresses
-MANAGERS = ''
+MANAGERS = [('Sumashri','sumashrik@gmail.com'),]
+
 
