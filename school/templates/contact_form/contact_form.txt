@@ -1,0 +1,7 @@
+{% load i18n %}
+{% blocktrans with sitename=site.name siteurl=site.domain %}
+Thanks for contacting us on {{ sitename }}.  We have received your message and will get back in touch with you at the earliest possible.
+
+Sincerely,
+Team @ {{ sitename }}
+{% endblocktrans %}

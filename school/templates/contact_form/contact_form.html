@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block body_block %}
+    {% block title %}{% trans "Write us what you want to know about" %}{% endblock %}
+    {% block content %}
+        <table>
+            <form method='post' action=''>{% csrf_token %}
+                {{ form }}
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="{% trans "Submit" %}"/></td>
+            </form>
+        </table>
+    {% endblock %}
+{% endblock %}

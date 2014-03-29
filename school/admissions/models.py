@@ -18,10 +18,13 @@ class UserProfile(models.Model):
 
 class AppForm(models.Model):
     #define your columns here
-    app_form_id = models.IntegerField(auto_created=True, name='Application Form ID', primary_key=True, editable=False)
-    app_form_name = models.CharField(max_length=200, blank=False, null=False, db_index=True, editable=True,
-                                     verbose_name='Name of the application form',
-                                     help_text='Name of the application form')
+    id = models.IntegerField(auto_created=True, name='Application Form ID', primary_key=True, editable=False)
+    name = models.CharField(max_length=100, blank=False, null=False, db_index=True, editable=True,
+                            verbose_name='Name of the application form',
+                            help_text='Name of the application form')
+    description = models.CharField(max_length=400, blank=False, null=False, db_index=True, editable=True,
+                                   verbose_name='Name of the application form',
+                                   help_text='Name of the application form')
 
     class Meta:
         verbose_name_plural = "Application Forms"
@@ -55,11 +58,13 @@ class Institution(models.Model):
     name = models.CharField(max_length=200, blank=False, null=False, db_index=True, editable=True,
                             verbose_name='Institution Name', help_text='Institution Name. Users will search by name.')
     address = models.CharField(max_length=200, blank=False, null=False, db_index=False, editable=True,
-                            verbose_name='Address', help_text='Site No, Street Name and other address related details')
+                               verbose_name='Address',
+                               help_text='Site No, Street Name and other address related details')
     city = models.CharField(max_length=100, blank=False, null=False, db_index=False, editable=True,
                             verbose_name='City', help_text='City')
     state = models.CharField(max_length=50, blank=False, null=False, db_index=False, editable=True,
-                            verbose_name='State', help_text='State')
+                             verbose_name='State', help_text='State')
+
     class Meta:
         verbose_name_plural = "Institutions"
 

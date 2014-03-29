@@ -27,6 +27,7 @@ urlpatterns = patterns('',
                        #and now add the registration urls
                        url(r'^accounts/', include('registration.backends.default.urls')),
                        url(r'^about/$', views.about, name='about'),
+                       (r'^contact/', include('contact_form.urls')),
                        url(r'^$', views.index, name='index'),
 )
 

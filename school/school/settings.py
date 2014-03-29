@@ -104,3 +104,16 @@ LOGIN_URL = '/accounts/login/'
 ACCOUNT_ACTIVATION_DAYS = 2
 
 LOGIN_REDIRECT_URL = '/'
+
+#####  django-contact-form related settings
+EMAIL_HOST = ''
+EMAIL_PORT = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+
+#By default, the From: header of all emails sent by django-contact-form will be whatever email address is specified in DEFAULT_FROM_EMAIL
+DEFAULT_FROM_EMAIL = ''
+
+#The recipient list for emails sent by django-contact-form will be the email addresses
+MANAGERS = ''
+
