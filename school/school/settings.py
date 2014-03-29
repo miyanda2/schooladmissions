@@ -117,6 +117,6 @@ EMAIL_HOST_PASSWORD = 'django123'
 DEFAULT_FROM_EMAIL = 'django.sandeep.lakshmipathy@gmail.com'
 
 #The recipient list for emails sent by django-contact-form will be the email addresses
-MANAGERS = [('Sumashri','sumashrik@gmail.com'),]
+MANAGERS = [('Sandeep','sandeepl79@gmail.com'),]
 
 
