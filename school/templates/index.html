@@ -12,7 +12,7 @@
         {% if institutions %}
         <ul>
             {% for institute in institutions %}
-            <li><a href="/admissions/institutions/{{ institute.url }}">{{ institute.name }}</a></li>
+            <li><a href="{{institute.get_absolute_url}}">{{ institute.name }}</a></li>
             {% endfor %}
         </ul>
         {% else %}

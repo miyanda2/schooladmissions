@@ -1,7 +1,11 @@
 from django.contrib import admin
 
 # Register your models here.
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 from admissions.models import AppFormTemplateParameters, UserProfile, AppForm, Institution
+
+admin.site.unregister(User)
 
 
 class AppFormTemplateParametersAdmin(admin.StackedInline):
@@ -15,13 +19,16 @@ class AppFormAdmin(admin.ModelAdmin):
     inlines = [AppFormTemplateParametersAdmin]
 
 
-class UserProfileAdmin(admin.ModelAdmin):
+class UserProfileInline(admin.StackedInline):
     model = UserProfile
+
+class UserProfileAdmin(UserAdmin):
+    inlines = [UserProfileInline, ]
 
 class InstitutionAdmin(admin.ModelAdmin):
     model = Institution
 
 #admin.site.register(AppFormTemplateParameters, AppFormTemplateParametersAdmin)
 admin.site.register(AppForm, AppFormAdmin)
-admin.site.register(UserProfile, UserProfileAdmin)
+admin.site.register(User, UserProfileAdmin)
 admin.site.register(Institution, InstitutionAdmin)

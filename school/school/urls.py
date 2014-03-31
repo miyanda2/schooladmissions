@@ -26,8 +26,16 @@ urlpatterns = patterns('',
 
                        #and now add the registration urls
                        url(r'^accounts/', include('registration.backends.default.urls')),
+
+                       # Application Form & institution related URLs
+                       url(r'^application/apply/$', views.apply, name='apply'),
+                       url(r'^institution/(?P<institute_id>\d+)/$', views.institution_details, name='view-institute-details'),
+                       url(r'^institution/$', views.institution_list, name='view-all-institutes'),
+                       # Other URLs
                        url(r'^about/$', views.about, name='about'),
-                       (r'^contact/', include('contact_form.urls')),
+                       url(r'^contact/$', include('contact_form.urls')),
+
+                       # catch-all URL
                        url(r'^$', views.index, name='index'),
 )
 

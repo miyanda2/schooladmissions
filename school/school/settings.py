@@ -30,12 +30,13 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_PROFILE_MODULE = 'admissions.UserProfile'
 
 # Application definition
 
 INSTALLED_APPS = (
-    'django_admin_bootstrapped.bootstrap3',
-    'django_admin_bootstrapped',
+    #'django_admin_bootstrapped.bootstrap3',
+    #'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -105,6 +106,7 @@ LOGIN_URL = '/accounts/login/'
 
 ACCOUNT_ACTIVATION_DAYS = 2
 
+# The URL where requests are redirected after login when the contrib.auth.login view gets no next parameter.
 LOGIN_REDIRECT_URL = '/'
 
 #####  django-contact-form related settings
@@ -121,4 +123,4 @@ DEFAULT_FROM_EMAIL = 'django.sandeep.lakshmipathy@gmail.com'
 #The recipient list for emails sent by django-contact-form will be the email addresses
 MANAGERS = [('Sandeep','sandeepl79@gmail.com')]
 
-
+FISTURE_DIRS = (os.path.join(PROJECT_PATH, 'fixtures'), )
