@@ -26,6 +26,37 @@ DEGREES = (
 )
 
 
+# Refer here for details avout SeparatedValuesField: https://github.com/thoas/django-separatedvaluesfield
+class Institution(models.Model):
+    #define your columns here
+    institute_id = models.IntegerField(auto_created=True, primary_key=True, editable=False, help_text="Institution ID")
+    name = models.CharField(max_length=200, blank=False, null=False, db_index=True, editable=True,
+                            verbose_name='Institution Name', help_text='Institution Name. Users will search by name.')
+    address = models.CharField(max_length=200, blank=False, null=False, db_index=False, editable=True,
+                               verbose_name='Address',
+                               help_text='Site No, Street Name and other address related details')
+    city = models.CharField(max_length=100, blank=False, null=False, db_index=False, editable=True,
+                            verbose_name='City', help_text='City')
+    state = models.CharField(max_length=50, blank=False, null=False, db_index=False, editable=True,
+                             verbose_name='State', help_text='State')
+    start_class_level = models.CharField(max_length=20, blank=False, null=False, db_index=False, editable=True,
+                                         verbose_name='Starting class level',
+                                         help_text='State the lowest class level at which kids can get admitted to the institution')
+    end_class_level = SeparatedValuesField(max_length=200, blank=False, null=False, db_index=False, editable=True,
+                                           choices=DEGREES, verbose_name='Highest class level',
+                                           help_text='State the highest class level till which students can study in the institute')
+
+    class Meta:
+        verbose_name_plural = 'Institutions'
+        ordering = ['name']
+
+    def get_absolute_url(self):
+        return reverse('view-institute-details', kwargs={'institute_id': str(self.pk)})
+
+    # Override the __unicode__() method to return out something meaningful!
+    def __unicode__(self):
+        return '{0} - {1} - {2}'.format(self.name, self.address, self.state)
+
 
 # Create your models here.
 # ********* NOTE: TO-DO *********************
@@ -81,14 +112,14 @@ class UserFamilyProfile(models.Model):
 # Basic application form that holds all the application related parameters
 class AppForm(models.Model):
     #define your columns here
-    id = models.IntegerField(auto_created=True, name='Application Form ID', primary_key=True, editable=False)
+    appform_id = models.IntegerField(auto_created=True, name='Application Form ID', primary_key=True, editable=False, )
     name = models.CharField(max_length=100, blank=False, null=False, db_index=True, editable=True,
                             verbose_name='Name of the application form',
                             help_text='Name of the application form')
     description = models.CharField(max_length=400, blank=True, null=True, db_index=False, editable=True,
                                    verbose_name='Description of the form',
                                    help_text='Description of the application form')
-
+    institute_id = models.ForeignKey(Institution)
     class Meta:
         verbose_name_plural = "Application Forms"
 
@@ -117,33 +148,3 @@ class AppFormTemplateParameters(models.Model):
     def __unicode__(self):
         return 'Application Form Template for userd id = {0}'.format(self.app_form_id)
 
-
-# Refer here for details avout SeparatedValuesField: https://github.com/thoas/django-separatedvaluesfield
-class Institution(models.Model):
-    #define your columns here
-    institute_id = models.IntegerField(auto_created=True, name='Institution ID', primary_key=True, editable=False)
-    name = models.CharField(max_length=200, blank=False, null=False, db_index=True, editable=True,
-                            verbose_name='Institution Name', help_text='Institution Name. Users will search by name.')
-    address = models.CharField(max_length=200, blank=False, null=False, db_index=False, editable=True,
-                               verbose_name='Address',
-                               help_text='Site No, Street Name and other address related details')
-    city = models.CharField(max_length=100, blank=False, null=False, db_index=False, editable=True,
-                            verbose_name='City', help_text='City')
-    state = models.CharField(max_length=50, blank=False, null=False, db_index=False, editable=True,
-                             verbose_name='State', help_text='State')
-    start_class_level = models.CharField(max_length=20, blank=False, null=False, db_index=False, editable=True,
-                                         verbose_name='Starting class level',
-                                         help_text='State the lowest class level at which kids can get admitted to the institution')
-    end_class_level = SeparatedValuesField(max_length=200, blank=False, null=False, db_index=False, editable=True,
-                                           choices=DEGREES, verbose_name='Highest class level',
-                                           help_text='State the highest class level till which students can study in the institute')
-
-    class Meta:
-        verbose_name_plural = "Institutions"
-
-    def get_absolute_url(self):
-        return reverse('view-institute-details', kwargs={'institute_id': str(self.pk)})
-
-    # Override the __unicode__() method to return out something meaningful!
-    def __unicode__(self):
-        return '{0} - {1} - {2}'.format(self.name, self.address, self.state)

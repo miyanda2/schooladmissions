@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'registration',
     'admissions',
     'crispy_forms',
+    'haystack',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -124,3 +125,13 @@ DEFAULT_FROM_EMAIL = 'django.sandeep.lakshmipathy@gmail.com'
 MANAGERS = [('Sandeep','sandeepl79@gmail.com')]
 
 FISTURE_DIRS = (os.path.join(PROJECT_PATH, 'fixtures'), )
+
+# Haystack / solr related settings
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr'
+        # ...or for multicore...
+        # 'URL': 'http://127.0.0.1:8983/solr/mysite',
+    },
+}

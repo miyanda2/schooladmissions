@@ -26,8 +26,22 @@ def about(request):
 
 
 @login_required
-def apply(request):
-    pass
+def apply(request, institute_id, app_form_id):
+    if request.method == 'GET':
+        pass
+        #return render_to_response('admissions/applications_list.html', {'app_form_list':AppForm.objects.filter(institute_id__iexact=institute_id), 'institute_id':institute_id})
+    else:
+        pass
+
+
+@login_required
+def get_applications_list(request, institute_id):
+    if request.method == 'GET':
+        #show list of all application forms that are published by this institute
+        #institute_id = 0 # institute on which the user clicked the apply button
+        return render_to_response('admissions/applications_list.html', {'app_form_list':AppForm.objects.filter(institute_id__institute_id__iexact=institute_id), 'institute_id':institute_id})
+    else:
+        pass
 
 
 # Clicking on the Apply button brings user to the list of institutions that have application forms posted.
@@ -41,6 +55,18 @@ def institution_list(request):
         pass
 
     pass
+
+
+@login_required
+def search_institutes(request):
+    if request.method == 'GET':
+        search_term = request.GET['q']
+        if search_term:
+            results = Institution.objects.filter(name__icontains=search_term)
+            return render_to_response('admissions/search.html',
+                                      {'search_term': search_term, 'results': results})
+    else:
+        pass
 
 
 @login_required
