@@ -42,8 +42,18 @@
                         <li><a href="/institution/add/">Add Institution</a></li>
                         <li><a href="/institution/">Apply</a></li>
                     {% endif %}
-                    <li><a href="/about/">About</a></li>
-                    <li><a href="/contact/">Contact Us</a></li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Company <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/about/">About Us</a></li>
+                            <li><a href="/contact/">Contact</a></li>
+                            <li><a href="/contact/">In The News</a></li>
+                            <li><a href="/contact/">Resources</a></li>
+                            <li><a href="/contact/">Partners</a></li>
+
+                        </ul>
+                    </li>
+
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -83,6 +93,13 @@
                     <li><a href="/termsofservice/">Terms Of Service</a></li>
                     <li><a href="/privacy/">Privacy Policy</a></li>
                     <li><a href="/sitemap/">Sitemap</a></li>
+                    {% comment %}<li class="top-space-small" id="footer-social-icons">
+                        <a target="_blank" href="http://www.linkedin.com/"><i class="icon-linkedin"></i></a>
+                        <a target="_blank" href="https://www.facebook.com/"><i class="icon-facebook"></i></a>
+                        <a target="_blank" href="https://twitter.com/"><i class="icon-twitter"></i></a>
+                        <a target="_blank" href="http://www.youtube.com/"><i class="icon-youtube"></i></a>
+                        <a target="_blank" href="https://plus.google.com/"><i class="icon-google-plus"></i></a>
+                    </li>{% endcomment %}
                 </ul>
             </div>
         </div>
