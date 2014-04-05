@@ -1,4 +1,5 @@
 {% load static %}
+{% load staticfiles %}
 {% load i18n %}
 <!DOCTYPE html>
 <html>
@@ -15,6 +16,8 @@
 </head>
 <body>
 
+<!-- top bar -->
+
 <!-- Top Bar -->
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
@@ -27,6 +30,7 @@
             <a class="brand" href="/">Admissions</a>
 
             <div class="nav-collapse collapse">
+
                 <ul class="nav pull-right">
                     {% if user.is_authenticated %}
                         <li class="navbar-text">Welcome, {{ user.username }}!</li>
@@ -35,7 +39,16 @@
                         <li><a href="/accounts/register/">Register</a></li>
                         <li><a href="/accounts/login/">Login</a></li>
                     {% endif %}
+                    <li>
+                        <form class="form-search" action="/search/">
+                            <div class="input-append">
+                                <input type="text" class="span2 search-query">
+                                <button type="submit" class="btn">Search</button>
+                            </div>
+                        </form>
+                    </li>
                 </ul>
+
                 <ul class="nav">
                     {% if user.is_authenticated %}
                         <li><a href="/demo/restricted/">Restricted</a></li>
@@ -55,10 +68,15 @@
                     </li>
 
                 </ul>
+
             </div>
             <!--/.nav-collapse -->
+
         </div>
+
+
     </div>
+
 </div>
 
 <!-- Nav Bar & the main content portion -->
@@ -93,13 +111,6 @@
                     <li><a href="/termsofservice/">Terms Of Service</a></li>
                     <li><a href="/privacy/">Privacy Policy</a></li>
                     <li><a href="/sitemap/">Sitemap</a></li>
-                    {% comment %}<li class="top-space-small" id="footer-social-icons">
-                        <a target="_blank" href="http://www.linkedin.com/"><i class="icon-linkedin"></i></a>
-                        <a target="_blank" href="https://www.facebook.com/"><i class="icon-facebook"></i></a>
-                        <a target="_blank" href="https://twitter.com/"><i class="icon-twitter"></i></a>
-                        <a target="_blank" href="http://www.youtube.com/"><i class="icon-youtube"></i></a>
-                        <a target="_blank" href="https://plus.google.com/"><i class="icon-google-plus"></i></a>
-                    </li>{% endcomment %}
                 </ul>
             </div>
         </div>

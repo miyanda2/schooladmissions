@@ -1,6 +1,7 @@
 from django.conf.urls import *
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
+from django.conf.urls.static import static
 from admissions import views
 from django.conf import settings
 
@@ -37,6 +38,8 @@ urlpatterns = patterns('',
                        # Other URLs
                        url(r'^about/$', views.about, name='about'),
                        url(r'^contact/$', include('contact_form.urls')),
+                       (r'^tinymce/', include('tinymce.urls')),
+                       (r'^newsletter/', include('newsletter.urls')),
 
                        # catch-all URL
                        url(r'^$', views.index, name='index'),
@@ -48,3 +51,6 @@ if settings.DEBUG:
         (r'media/(?P<path>.*)',
          'serve',
          {'document_root': settings.MEDIA_ROOT}), )
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -17,6 +17,38 @@ BASE_DIR = os.path.dirname(SETTINGS_DIR)
 PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
 PROJECT_PATH = os.path.abspath(PROJECT_PATH)
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(PROJECT_PATH, 'static')
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_PATH, 'assets'),
+)
+
+# TinyMCE settings
+STATIC_DIR = os.path.join(PROJECT_PATH, 'static')
+STATIC_JS_DIR = os.path.join(STATIC_DIR, "js")
+TINYMCE_JS_ROOT = os.path.join(STATIC_JS_DIR, "tiny_mce")
+TINYMCE_JS_URL = os.path.join(TINYMCE_JS_ROOT, "tiny_mce.min.js")
+#TINYMCE_JS_URL = '/static/js/tinymce/tiny_mce.min.js'
+# TINYMCE_JS_ROOT = os.path.join(PROJECT_PATH, '/static/js/tiny_mce')
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table,paste,searchreplace",
+    'theme': "advanced",
+}
+TINYMCE_SPELLCHECKER = False
+TINYMCE_COMPRESSOR = False
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -39,6 +71,7 @@ INSTALLED_APPS = (
     #'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -47,6 +80,9 @@ INSTALLED_APPS = (
     'admissions',
     'crispy_forms',
     'haystack',
+    'newsletter',
+    'tinymce',
+    #'south',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -62,6 +98,7 @@ ROOT_URLCONF = 'school.urls'
 
 WSGI_APPLICATION = 'school.wsgi.application'
 
+SITE_ID = 1
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -87,12 +124,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [os.path.join(SETTINGS_DIR, '../static')]
 
 TEMPLATE_PATH = os.path.join(PROJECT_PATH, 'templates')
 
@@ -117,7 +149,6 @@ EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'django.sandeep.lakshmipathy'
 EMAIL_HOST_PASSWORD = 'django123'
 
-
 #By default, the From: header of all emails sent by django-contact-form will be whatever email address is specified in DEFAULT_FROM_EMAIL
 DEFAULT_FROM_EMAIL = 'django.sandeep.lakshmipathy@gmail.com'
 
@@ -125,6 +156,11 @@ DEFAULT_FROM_EMAIL = 'django.sandeep.lakshmipathy@gmail.com'
 MANAGERS = [('Sandeep','sandeepl79@gmail.com')]
 
 FISTURE_DIRS = (os.path.join(PROJECT_PATH, 'fixtures'), )
+
+
+
+
+
 
 # Haystack / solr related settings
 HAYSTACK_CONNECTIONS = {
@@ -135,3 +171,9 @@ HAYSTACK_CONNECTIONS = {
         # 'URL': 'http://127.0.0.1:8983/solr/mysite',
     },
 }
+
+
+# Newsletter options
+NEWSLETTER_CONFIRM_EMAIL = True
+# Using django-tinymce
+NEWSLETTER_RICHTEXT_WIDGET = "tinymce.widgets.TinyMCE"
