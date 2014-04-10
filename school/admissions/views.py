@@ -1,8 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response
+from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response, get_object_or_404
 
 # Create your views here.
 from django.template import RequestContext
+from admissions.forms import AppFormForm
 from admissions.models import Institution, AppForm
 
 
@@ -28,10 +30,17 @@ def about(request):
 @login_required
 def apply(request, institute_id, app_form_id):
     if request.method == 'GET':
-        pass
-        #return render_to_response('admissions/applications_list.html', {'app_form_list':AppForm.objects.filter(institute_id__iexact=institute_id), 'institute_id':institute_id})
-    else:
-        pass
+        context = RequestContext(request)
+        form = AppFormForm()  # An unbound form
+        return render_to_response('admissions/apply_for_institution.html',
+                                  {'form': form, 'institute_id': institute_id, 'app_form_id': app_form_id, }, context)
+        # Refer http://jacobian.org/writing/dynamic-form-generation/
+    else:  #POST
+        form = AppFormForm(request.POST)  # A form bound to the POST data
+        if form.is_valid():  # All validation rules pass
+            # Process the data in form.cleaned_data
+            form.save()
+            return render_to_response('admissions/thanks.html', {}, context_instance=RequestContext(request))
 
 
 @login_required
@@ -39,7 +48,9 @@ def get_applications_list(request, institute_id):
     if request.method == 'GET':
         #show list of all application forms that are published by this institute
         #institute_id = 0 # institute on which the user clicked the apply button
-        return render_to_response('admissions/applications_list.html', {'app_form_list':AppForm.objects.filter(institute_id__institute_id__iexact=institute_id), 'institute_id':institute_id})
+        return render_to_response('admissions/applications_list.html', {
+            'app_form_list': AppForm.objects.filter(institute_id__institute_id__iexact=institute_id),
+                'institute_id': institute_id}, context_instance=RequestContext(request))
     else:
         pass
 
@@ -73,7 +84,8 @@ def search_institutes(request):
 def institution_details(request, institute_id):
     if request.method == 'GET':
         if institute_id and len(institute_id) > 0:
-            return render_to_response('admissions/institution.html', {'institute': Institution.objects.filter(pk=institute_id)[:1]})
+            return render_to_response('admissions/institution.html',
+                                      {'institute': Institution.objects.filter(pk=institute_id)[:1]})
 
     else:
         pass
@@ -84,3 +96,12 @@ def institution_details(request, institute_id):
 @login_required
 def create_profile(request):
     pass
+
+
+@login_required
+def edit_application(request, app_id):
+    # Refer here: http://stackoverflow.com/questions/13914880/auto-fill-modelform-with-data-already-stored-in-database
+    ins = get_object_or_404(AppForm, appform_id=app_id)
+    form = AppFormForm(instance=ins)
+    if request.method == "POST":
+        form = AppFormForm(request.POST, instance=ins)

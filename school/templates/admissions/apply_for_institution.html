@@ -1,9 +1,14 @@
-{% extends 'admissions/../base.html' %}
+{% extends 'base.html' %}
 {% block body_block %}
-<div  class="hero-unit">
-    <h1>Apply !</h1>
+    <div class="hero-unit">
+        <h1>Apply !</h1>
 
-    You've visited the site on <strong>{{ visit_count }} occasion(s)</strong>.<br />
+        You've visited the site on <strong>{{ visit_count }} occasion(s)</strong>.<br/>
 
-</div>
+        <form action="{% url 'apply-for-an-application' institute_id  app_form_id %}" method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit"/>
+        </form>
+
+    </div>
 {% endblock %}

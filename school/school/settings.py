@@ -80,8 +80,11 @@ INSTALLED_APPS = (
     'admissions',
     'crispy_forms',
     'haystack',
-    'newsletter',
+    'django_extensions',
+    'sorl.thumbnail',
     'tinymce',
+    'newsletter',
+    'forms_builder.forms',
     #'south',
 )
 
@@ -121,7 +124,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 

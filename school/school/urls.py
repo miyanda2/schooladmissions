@@ -29,10 +29,10 @@ urlpatterns = patterns('',
                        url(r'^accounts/', include('registration.backends.default.urls')),
 
                        # Application Form & institution related URLs
-                       url(r'^application/apply/$', views.apply, name='apply'),
                        url(r'^institution/(?P<institute_id>\d+)/$', views.institution_details, name='view-institute-details'),
                        url(r'^institution/$', views.institution_list, name='view-all-institutes'),
                        url(r'^institution/(?P<institute_id>\d+)/applications/$', views.get_applications_list, name='view-apps-for-inst'),
+                       url(r'^institution/(?P<institute_id>\d+)/applications/(?P<app_form_id>\d+)/$', views.apply, name='apply-for-an-application'),
                        #url(r'^search/$', views.search_institutes, name='about'),
                        (r'^search/', include('haystack.urls')),
                        # Other URLs
