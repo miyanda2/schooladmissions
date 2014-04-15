@@ -2,10 +2,18 @@ from django.conf.urls import *
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from django.conf.urls.static import static
+from rest_framework.urlpatterns import format_suffix_patterns
+from tastypie.api import Api
 from admissions import views
 from django.conf import settings
+from admissions.api import InstitutionResource, AppFormResource
+
 
 admin.autodiscover()
+
+v1_api = Api(api_name='v1')
+v1_api.register(InstitutionResource())
+v1_api.register(AppFormResource())
 
 urlpatterns = patterns('',
                        # Examples:
@@ -43,6 +51,10 @@ urlpatterns = patterns('',
 
                        # catch-all URL
                        url(r'^$', views.index, name='index'),
+
+                       #REST urls
+                       (r'^api/', include(v1_api.urls)),
+                       url(r'^api-restfw/', include('rest_framework.urls', namespace='rest_framework')),  # http://www.django-rest-framework.org/
 )
 
 if settings.DEBUG:
@@ -54,3 +66,6 @@ if settings.DEBUG:
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+    urlpatterns = format_suffix_patterns(urlpatterns)

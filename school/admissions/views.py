@@ -4,8 +4,12 @@ from django.shortcuts import render_to_response, get_object_or_404
 
 # Create your views here.
 from django.template import RequestContext
+from rest_framework.decorators import api_view, renderer_classes
 from admissions.forms import AppFormForm
 from admissions.models import Institution, AppForm
+from rest_framework.renderers import (JSONRenderer, HTMLFormRenderer, StaticHTMLRenderer, TemplateHTMLRenderer)
+from admissions.serializer import InstitutionSerializer
+from rest_framework.response import Response
 
 
 def index(request):
@@ -46,7 +50,7 @@ def apply(request, institute_id, app_form_id):
 @login_required
 def get_applications_list(request, institute_id):
     if request.method == 'GET':
-        #show list of all application forms that are published by this institute
+        #show list of all application formfrom rest_framework.response import Responses that are published by this institute
         #institute_id = 0 # institute on which the user clicked the apply button
         return render_to_response('admissions/applications_list.html', {
             'app_form_list': AppForm.objects.filter(institute_id__institute_id__iexact=institute_id),
@@ -58,9 +62,21 @@ def get_applications_list(request, institute_id):
 # Clicking on the Apply button brings user to the list of institutions that have application forms posted.
 # User can pick one of the institutions and apply.
 @login_required
-def institution_list(request):
+@api_view(('GET',))
+@renderer_classes((TemplateHTMLRenderer, JSONRenderer))
+def institution_list(request, format=None):
+    """
+    A view that can return JSON or HTML representations of the institutions in the system.
+    """
+    queryset = Institution.objects.all()
     if request.method == 'GET':
-        return render_to_response('admissions/institution_list.html', {'institute_list': Institution.objects.all()})
+        if request.accepted_renderer.format == 'html':
+            data = {'institute_list': queryset}
+            return Response(data, template_name='admissions/institution_list.html')
+        else:
+            # JSONRenderer requires serialized data
+            serializer = InstitutionSerializer(instance=queryset)
+            return Response(serializer.data)
 
     else:
         pass

@@ -85,6 +85,8 @@ INSTALLED_APPS = (
     'tinymce',
     'newsletter',
     'forms_builder.forms',
+    'tastypie', #can be removed, moving to 'rest_framework'
+    'rest_framework',
     #'south',
 )
 
@@ -180,3 +182,17 @@ HAYSTACK_CONNECTIONS = {
 NEWSLETTER_CONFIRM_EMAIL = True
 # Using django-tinymce
 NEWSLETTER_RICHTEXT_WIDGET = "tinymce.widgets.TinyMCE"
+
+
+REST_FRAMEWORK = {
+    # Use hyperlinked styles by default.
+    # Only used if the `serializer_class` attribute is not set on a view.
+    'DEFAULT_MODEL_SERIALIZER_CLASS':
+        'rest_framework.serializers.HyperlinkedModelSerializer',
+
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    #]
+}
